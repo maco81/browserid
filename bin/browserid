@@ -13,6 +13,7 @@ urlparse = require('urlparse'),
 express = require('express');
 
 const
+cachify = require('connect-cachify'),
 i18n = require('../lib/i18n.js'),
 wsapi = require('../lib/wsapi.js'),
 httputils = require('../lib/httputils.js'),
@@ -130,6 +131,19 @@ app.use(function(req, resp, next) {
   };
   return next();
 });
+
+app.use(cachify.setup({
+  production: config.get('use_minified_resources'),
+  js: views.js(config.get('supported_languages')),
+  css: {
+    "/production/dialog.css": [
+      "/css/common.css",
+      "/dialog/css/popup.css",
+      "/dialog/css/m.css"
+    ]
+  }
+}));
+
 
 // #7 - perform response substitution to support local/dev/beta environments
 // (specifically, this replaces URLs in responses, e.g. https://browserid.org
