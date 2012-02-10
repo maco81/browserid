@@ -132,8 +132,11 @@ app.use(function(req, resp, next) {
   return next();
 });
 
+var static_root = path.join(__dirname, "..", "resources", "static");
+
 app.use(cachify.setup({
   production: config.get('use_minified_resources'),
+  root: static_root,
   js: views.js(config.get('supported_languages')),
   css: {
     "/production/dialog.css": [
@@ -182,7 +185,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(path.join(__dirname, "..", "resources", "static")));
+app.use(express.static(static_root));
 
 // custom 404 page
 app.use(function(req, res,next) {
