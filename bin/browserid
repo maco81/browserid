@@ -187,13 +187,6 @@ app.use(function(req, res, next) {
 
 app.use(express.static(static_root));
 
-// custom 404 page
-app.use(function(req, res,next) {
-  res.statusCode = 404;
-  res.write("Cannot find this resource");
-  res.end();
-});
-
 // open the databse
 db.open(config.get('database'), function (error) {
   if (error) {
