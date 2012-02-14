@@ -11,7 +11,6 @@ BrowserID.Modules.PickEmail = (function() {
       errors = bid.Errors,
       storage = bid.Storage,
       helpers = bid.Helpers,
-      cancelEvent = helpers.cancelEvent,
       dialogHelpers = helpers.Dialog,
       dom = bid.DOM,
       sc;
@@ -90,7 +89,7 @@ BrowserID.Modules.PickEmail = (function() {
         dom.focus("#signInButton");
       }
 
-      self.bind("#useNewEmail", "click", cancelEvent(addEmail));
+      self.click("#useNewEmail", addEmail);
 
       sc.start.call(self, options);
 
